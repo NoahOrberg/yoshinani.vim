@@ -10,3 +10,7 @@ if you use `NeoBundle`,
 ```vim
 NeoBundle 'NoahOrberg/yoshinani.vim'
 ```
+
+## usage
+default template DIR is `$HOME/.yoshinani/`
+

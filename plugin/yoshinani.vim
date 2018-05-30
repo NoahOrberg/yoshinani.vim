@@ -14,7 +14,7 @@ let g:loaded_yoshinani = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-
+command! Yoshinani call yoshinani#yoshinani()
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
