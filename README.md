@@ -13,6 +13,8 @@ NeoBundle 'NoahOrberg/yoshinani.vim'
 
 ## usage
 
+![example](./img/img.gif)
+
 ### template DIR
 default template DIR is `$HOME/.yoshinani/`.  
 you can set default template DIR.
