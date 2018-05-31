@@ -15,7 +15,14 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! yoshinani#yoshinani() abort
-    let fname = input('template file ($HOME/.yoshinani/) : ')
+    if !yoshinani#is_empty_buffer()
+        echoerr 'cannot use yoshinani because this is not empty buf.'
+        return
+    endif
+    let fname = input('template file (' . yoshinani#template_path() . ') : ')
+    if fname == ''
+        return
+    endif
     if !yoshinani#exists_file(fname)
         echoerr 'no such template file(' . fname . ')'
         return
@@ -31,7 +38,7 @@ function! yoshinani#yoshinani() abort
 endfunction
 
 function! yoshinani#exists_file(fname) abort
-    let s = glob($HOME . "/.yoshinani/" . a:fname)
+    let s = glob(yoshinani#template_path() . a:fname)
     if s == ""
         return v:false
     endif
@@ -51,7 +58,7 @@ function! yoshinani#check_filetype(fname) abort
 endfunction
 
 function! yoshinani#read_file(fname) abort
-    let f = $HOME . "/.yoshinani/" . a:fname
+    let f = yoshinani#template_path() . a:fname
     return f
 endfunction
 
@@ -63,8 +70,22 @@ function! yoshinani#write_buf(f) abort
     endfor
 endfunction
 
-function! yoshinani#set_filetype() abort
+function! yoshinani#template_path() abort
+    if exists('g:yoshinani_template_path') == 0
+        return $HOME . '/.yoshinani/'
+    endif
+    if g:yoshinani_template_path !~ '.*/$'
+        return g:yoshinani_template_path . '/'
+    endif
+    return g:yoshinani_template_path
+endfunction
 
+function! yoshinani#is_empty_buffer() abort
+    let lines = getline(1, '$')
+    if len(lines) == 1 && lines[0] == ''
+        return v:true
+    endif
+    return v:false
 endfunction
 
 let &cpo = s:save_cpo
