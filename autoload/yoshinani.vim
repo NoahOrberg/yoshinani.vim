@@ -34,8 +34,8 @@ function! yoshinani#yoshinani() abort
         return
     endif
 
-    let f = yoshinani#read_file(fname)
-    call yoshinani#write_buf(f)
+    let fpath = yoshinani#filepath(fname)
+    call yoshinani#write_buf(fpath)
     filetype on
 endfunction
 
@@ -59,9 +59,8 @@ function! yoshinani#check_filetype(fname) abort
     return v:false
 endfunction
 
-function! yoshinani#read_file(fname) abort
-    let f = yoshinani#template_path() . a:fname
-    return f
+function! yoshinani#filepath(fname) abort
+    return yoshinani#template_path() . a:fname
 endfunction
 
 function! yoshinani#write_buf(f) abort
