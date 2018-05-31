@@ -14,6 +14,8 @@ let g:loaded_yoshinani = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+let s:cursor_mark = '{{{c}}}'
+
 function! yoshinani#yoshinani() abort
     if !yoshinani#is_empty_buffer()
         echoerr 'cannot use yoshinani because this is not empty buf.'
@@ -64,10 +66,18 @@ endfunction
 
 function! yoshinani#write_buf(f) abort
     let cnt = 0
+    let pos = {'x': 0, 'y': 0}
     for line in readfile(a:f)
         let cnt = cnt + 1
+        let ppos = stridx(line, s:cursor_mark)
+        if ppos != -1
+            let pos['x'] = ppos
+            let pos['y'] = cnt
+            let line = substitute(line, s:cursor_mark, '', 'g')
+        endif
         call setline(cnt, line)
     endfor
+    call cursor(pos['y'], pos['x'])
 endfunction
 
 function! yoshinani#template_path() abort
