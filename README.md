@@ -2,11 +2,11 @@
 
 
 ## installation
-if you use `dein`, 
+if you use `dein.vim`, 
 ```vim
-dein#add('NoahOrberg/yoshinani.vim')
+call dein#add('NoahOrberg/yoshinani.vim')
 ```
-if you use `NeoBundle`, 
+if you use `NeoBundle.vim`, 
 ```vim
 NeoBundle 'NoahOrberg/yoshinani.vim'
 ```
@@ -27,7 +27,7 @@ let g:yoshinani_template_path = '/path/to/template-dir'
 
 if this operation is troublesome, you can set `nnoremap`
 ``` vim
-nnoremap <silent><C-y> :Yoshinani
+nnoremap <silent><C-y> :Yoshinani<CR>
 ```
 
 ### how to write template
