@@ -41,7 +41,7 @@ endfunction
 
 function! yoshinani#exists_file(fname) abort
     let s = glob(yoshinani#template_path() . a:fname)
-    if s == ""
+    if s == ''
         return v:false
     endif
     return v:true
